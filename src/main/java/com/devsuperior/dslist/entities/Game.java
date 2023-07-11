@@ -21,22 +21,28 @@ public class Game {
 	@Column(name = "game_year") // Mudando o nome da coluna no banco, pq year é uma palavra reservada do SQL
 	private Integer year;
 	private String genre;
-	private String platform;
+	private String platforms;
+	private Double score;
 	private String imgUrl;
+	
+	@Column(columnDefinition = "TEXT") // Cirar o campo na tabela com o tipo texto, String iria gerar apenas 255 caracteres (O String no Java suporta 4Gb)
 	private String shortDescription;
+	
+	@Column(columnDefinition = "TEXT")
 	private String longDescription;
 	
 	public Game() {
 		
 	}
 
-	public Game(Long id, String title, Integer year, String genre, String platform, String imgUrl,
-			String shortDescription, String longDescription) {
+	public Game(Long id, String title, Integer year, String genre, String platforms, Double score,
+			String imgUrl, String shortDescription, String longDescription) {
 		this.id = id;
 		this.title = title;
 		this.year = year;
 		this.genre = genre;
-		this.platform = platform;
+		this.platforms = platforms;
+		this.score = score;
 		this.imgUrl = imgUrl;
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;
@@ -74,12 +80,20 @@ public class Game {
 		this.genre = genre;
 	}
 
-	public String getPlatform() {
-		return platform;
+	public String getPlatforms() {
+		return platforms;
 	}
 
-	public void setPlatform(String platform) {
-		this.platform = platform;
+	public void setPlatforms(String platforms) {
+		this.platforms = platforms;
+	}
+	
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
 	}
 
 	public String getImgUrl() {
