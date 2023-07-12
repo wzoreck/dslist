@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.dslist.dto.GameDTO;
 import com.devsuperior.dslist.dto.GameMinDTO;
 import com.devsuperior.dslist.entities.Game;
 import com.devsuperior.dslist.repositories.GameRepository;
@@ -19,6 +21,14 @@ public class GameService {
 	@Autowired
 	private GameRepository gameRepository;
 	
+	@Transactional(readOnly = true) // Permite apenas a leitura dos dados
+	public GameDTO findById(Long id) {
+		Game result = gameRepository.findById(id).get();
+		GameDTO dto = new GameDTO(result); // Vai copiar os valores do Game para o GameDTO com o BeanUtils
+		return dto;
+	}
+	
+	@Transactional(readOnly = true)
 	public List<GameMinDTO> findAll()  {
 		// Buscar dados no BD, a tabela de Games que vier do BD vai ser automaticamente convertida para uma lista de Games
 		List<Game> result = gameRepository.findAll();
